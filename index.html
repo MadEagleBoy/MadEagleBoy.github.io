@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Jadson Alves</title>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="icon" type="image/x-icon" href="favicon.png" />
+        <!-- tailwind -->
+        <link href="dist/output.css" rel="stylesheet" />
+        <!-- alpine.js -->
+        <script src="dist/output.js" defer></script>
+        <!-- my stuff -->
+        <script src="js/components.js"></script>
+    </head>
+
+    <body class="bg-slate-800 font-mono text-slate-300">
+        <!-- Navbar-->
+        <nav x-data="$navbar" class="w-full">
+            <!-- Mobile Navbar -->
+            <div class="h-20 items-center bg-slate-800 px-4 lg:hidden">
+                <div class="flex h-full items-center justify-between">
+                    <span class="text-lg text-teal-400">./jadsonalves</span>
+                    <button @click="open = !open" class="text-slate-300">
+                        <svg
+                            x-show="!open"
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke-width="1.5"
+                            stroke="currentColor"
+                            class="h-8 w-8"
+                        >
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                        </svg>
+                        <svg
+                            x-show="open"
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke-width="1.5"
+                            stroke="currentColor"
+                            class="h-8 w-8"
+                        >
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+                <ul
+                    x-show="open"
+                    x-transition:enter="transition ease-out duration-100"
+                    x-transition:enter-start="transform opacity-0 scale-95"
+                    x-transition:enter-end="transform opacity-100 scale-100"
+                    x-transition:leave="transition ease-in duration-75"
+                    x-transition:leave-start="transform opacity-100 scale-100"
+                    x-transition:leave-end="transform opacity-0 scale-95"
+                    class="absolute right-0 left-0 bg-slate-800 text-lg"
+                >
+                    <template x-for="(entry, i) in entries">
+                        <li class="w-full">
+                            <a
+                                x-bind:href="entry.targetSection"
+                                class="block whitespace-nowrap p-4 focus-within:bg-slate-900 hover:bg-slate-900 hover:text-slate-200 active:text-slate-400"
+                            >
+                                <span class="text-teal-400" x-text="'0' + (i + 1) + '. '">01.</span>
+                                <span x-text="entry.name"></span>
+                            </a>
+                        </li>
+                    </template>
+                </ul>
+            </div>
+            <!---desktop navbar-->
+            <div class="h-50 hidden items-center justify-between bg-slate-800 px-10 lg:flex">
+                <span class="text-lg text-teal-400">./jadsonalves</span>
+                <ul class="flex space-x-8 text-sm">
+                    <template x-for="(entry, i) in entries">
+                        <li>
+                            <a
+                                x-bind:href="entry.targetSection"
+                                class="group relative inline-flex flex-col whitespace-nowrap text-slate-300 outline-none hover:text-slate-200 active:text-slate-400"
+                            >
+                                <span>
+                                    <span class="text-teal-400 group-hover:text-teal-300 group-active:text-teal-500" x-text="'0' + (i + 1) + '. '"
+                                        >01.</span
+                                    >
+                                    <span x-text="entry.name"></span>
+                                </span>
+                                <span
+                                    class="ease absolute bottom-0 h-1 w-0 scale-x-100 border-b-2 border-teal-400 transition-width duration-100 group-focus:w-full"
+                                ></span>
+                            </a>
+                        </li>
+                    </template>
+                </ul>
+            </div>
+        </nav>
+        <!-- Home -->
+        <section
+            id="home"
+            x-data="$home"
+            x-init="setup($refs)"
+            class="h-screen--20 flex flex-col-reverse items-center bg-slate-800 py-4 px-5 md:flex-row md:justify-between lg:p-10"
+        >
+            <!--Box with intro -->
+            <div class="flex-1 flex-col space-y-5 py-5 md:items-start md:justify-start md:py-0">
+                <span x-ref="a" class="text-base text-teal-400">Byte-size greetings, I'm Jadson!</span>
+                <h1
+                    class="bg-gradient-to-r from-slate-200 via-teal-400 to-slate-300 bg-clip-text pb-2 font-serif text-4xl text-transparent text-slate-300 lg:text-6xl"
+                >
+                    Jadson Alves
+                </h1>
+                <p class="max-w-sm pb-5 text-center text-base text-slate-300 md:max-w-none md:text-justify lg:text-lg">
+                    Hey there, I'm Jadson from Brazil! When I'm not busy saving the world from cyber threats (okay, maybe just learning to do it), I'm
+                    usually having a blast shooting targets or dancing to some groovy beats. I'm a Cyber Security student who loves to code and keep
+                    things secure, but I also know how to let loose and have fun. You can usually catch me practicing my moves or perfecting my aim.
+                    So if you need someone to keep your data safe and your party going, I'm your guy!
+                </p>
+                <!-- download my resume -->
+                <div>
+                    <a
+                        href="doc/Resume.pdf"
+                        target="_blank"
+                        class="inline-flex items-center gap-3 whitespace-nowrap rounded border border-teal-400 px-8 py-4 text-sm text-teal-400 hover:border-teal-300 hover:bg-slate-700 hover:text-teal-300 focus:border-teal-300 focus:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-teal-300 focus:ring-offset-2 focus:ring-offset-slate-800 active:border-teal-500 active:text-teal-400"
+                    >
+                        Download my resume
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke-width="1.5"
+                            stroke="currentColor"
+                            class="h-[0.875rem] w-[0.875rem]"
+                        >
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"
+                            />
+                        </svg>
+                    </a>
+                </div>
+                <div>
+                    <button
+                        @click="play()"
+                        class="group inline-flex items-center justify-center gap-5 pt-5 text-slate-400 hover:text-slate-300 focus:outline-none"
+                    >
+                        <span
+                            class="inline-flex h-20 w-20 items-center justify-center rounded-full border border-slate-400 p-3 group-hover:border-slate-300 group-focus:border-teal-300 group-focus:text-teal-300 group-focus:ring-2 group-focus:ring-teal-300 group-focus:ring-offset-2 group-focus:ring-offset-slate-800"
+                        >
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke-width="1.5"
+                                stroke="currentColor"
+                                class="h-8 w-8"
+                            >
+                                <path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.348a1.125 1.125 0 010 1.971l-11.54 6.347a1.125 1.125 0 01-1.667-.985V5.653z"
+                                />
+                            </svg>
+                        </span>
+                        <span class="text-sm">Watch video</span>
+                    </button>
+                </div>
+                <!-- modal -->
+                <!-- See x-teleport: https://alpinejs.dev/directives/teleport -->
+                <template x-teleport="body">
+                    <div
+                        x-show="showVideo"
+                        @keydown.window.escape="hide()"
+                        class="relative z-10"
+                        aria-labelledby="modal-title"
+                        x-ref="dialog"
+                        aria-modal="true"
+                    >
+                        <!-- the overlay -->
+                        <div
+                            x-show="showVideo"
+                            x-transition:enter="ease-out duration-300"
+                            x-transition:enter-start="opacity-0"
+                            x-transition:enter-end="opacity-100"
+                            x-transition:leave="ease-in duration-200"
+                            x-transition:leave-start="opacity-100"
+                            x-transition:leave-end="opacity-0"
+                            class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"
+                        ></div>
+                        <!-- the video-->
+                        <div class="fixed inset-0 z-10 overflow-y-auto">
+                            <div class="flex min-h-full items-center justify-center p-4 sm:p-0">
+                                <div
+                                    x-show="showVideo"
+                                    @click.away="hide()"
+                                    x-transition:enter="ease-out duration-300"
+                                    x-transition:enter-start="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+                                    x-transition:enter-end="opacity-100 translate-y-0 sm:scale-100"
+                                    x-transition:leave="ease-in duration-200"
+                                    x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
+                                    x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+                                    class="relative w-full max-w-lg transform overflow-hidden rounded-lg bg-transparent text-left shadow-xl transition-all md:my-8"
+                                >
+                                    <div class="relative">
+                                        <iframe
+                                            x-ref="youtubeEmbeddedVideo"
+                                            class="aspect-video w-full"
+                                            src="https://www.youtube.com/embed/BQirE8NGLHA?enablejsapi=1"
+                                            title="YouTube video player"
+                                            frameborder="0"
+                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                            allowfullscreen
+                                        ></iframe>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+                <!-- end modal -->
+            </div>
+            <!--Box with image -->
+            <div class="flex flex-1 justify-end">
+                <div class="w-[25rem] max-w-xs md:h-[33rem] lg:max-w-none">
+                    <img src="./images/jadson.jpg" class="object-cover" alt="My Picture" />
+                </div>
+            </div>
+        </section>
+        <!-- About -->
+        <section id="about" class="px-4 py-8 text-slate-300 lg:px-10">
+            <h2 class="flex items-center gap-4 py-4">
+                <span><span class="text-teal-400">02 </span>About </span>
+                <span class="flex-grow border-spacing-3 border-t-2 border-dotted border-teal-400"></span>
+            </h2>
+            <div class="mt-6 flex flex-row">
+                <div class="flex-1 space-y-8">
+                    <p class="text-justify">
+                        I am a highly motivated and skilled <spam class="text-teal-400">Cybersecurity professional</spam> with a passion for
+                        technology and a good academic background. I am eager to learn from experienced professionals and gain hands-on experience in
+                        the latest tools and techniques for securing digital systems. I have a foundational understanding of cybersecurity principles,
+                        networking technologies, and experienced in <spam class="text-teal-400">Palo Alto firewall, Cisco packet tracer</spam>,
+                        scanning programs as <spam class="text-teal-400">Zenmap, WireShark, Ettercap, and Metasploit</spam>.
+                    </p>
+                    <p class="text-justify">
+                        I'm a <spam class="text-teal-400">dancing, singing, shooting</spam>, and
+                        <spam class="text-teal-400">traveling enthusiast</spam> with a <spam class="text-teal-400">special love for cats</spam>. When
+                        I'm not grooving to my favorite tunes or exploring new destinations, I can usually be found snuggling up with my furry feline
+                        friends. As a lifelong learner, I'm always seeking new experiences and opportunities to grow, both personally and
+                        professionally. My ultimate goal is to combine my passions for technology and creativity to make a positive impact on the
+                        world, one project at a time.
+                    </p>
+                    <p class="text-justify">
+                        Also, I am a <spam class="text-teal-400">software engineer</spam> with a passion for creating digital products. I have
+                        experience working with various technologies and collaborating with teams to develop innovative solutions. I am dedicated to
+                        staying up-to-date with the latest trends and techniques in the field to continuously improve my skills and knowledge.
+                    </p>
+                    <p class="text-justify">
+                        Lastly, I am a lifelong learner, always eager to dive into new technologies and expand my skill set. I hold an
+                        <spam class="text-teal-400">Associates in Cyber Security</spam> and a
+                        <spam class="text-teal-400">Bachelor's degree in Business</spam>, and I am currently pursuing a
+                        <spam class="text-teal-400">Bachelor's degree in Cyber Security</spam>. However, I believe that hands-on experience and
+                        working with teams is where the real learning happens. I bring a positive attitude and a sense of humor to every project I
+                        work on.
+                    </p>
+                </div>
+                <div class="flex flex-1 flex-row justify-end">
+                    <div class="relative">
+                        <svg class="w-[24rem] max-w-full" viewBox="0 0 384 424" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect class="h-[25rem] w-[22.5rem] fill-slate-500" x="0" y="0" width="360" height="400" />
+                        </svg>
+                        <svg
+                            class="absolute top-4 -right-4 -z-10 w-[24rem] max-w-full"
+                            viewBox="0 0 384 424"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                        >
+                            <rect class="h-[25rem] w-[22.5rem] fill-teal-500" x="0" y="0" width="360" height="400" />
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Skills -->
+        <section id="skills" x-data="$skills" x-init="load()" class="px-4 text-slate-300 lg:px-8">
+            <h2 class="flex items-center gap-4 py-4">
+                <span><span class="text-teal-400">03 </span>Skills </span>
+                <span class="flex-grow border-spacing-3 border-t-2 border-dotted border-teal-400"></span>
+            </h2>
+            <div class="flex flex-col flex-wrap items-center gap-4 pb-8 md:flex-row">
+                <!-- card -->
+                <template x-for="language in languages">
+                    <div
+                        class="flex h-[25rem] w-[20rem] flex-col justify-between rounded border border-teal-800 bg-slate-900 px-4 py-8 shadow-md shadow-teal-800"
+                    >
+                        <div class="flex flex-col gap-4">
+                            <img :src="language.image" alt="CSS Logo" class="h-12 w-12" />
+                            <h3 class="text-2xl text-slate-100" x-text="language.name">Language name</h3>
+                            <p class="text-sm" x-text="language.description">description</p>
+                        </div>
+                        <div class="flex flex-col gap-4 pt-8">
+                            <div class="h-8 bg-slate-700">
+                                <div class="h-8 bg-teal-700" :style="`width:${progress(language)}`"></div>
+                            </div>
+                            <div class="flex flex-row items-center">
+                                <span class="text-4xl" x-text="language.hours">40h</span><span class="text-slate-500">/1,000</span>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+            </div>
+        </section>
+        <!-- Experience -->
+        <section id="experience" x-data="$experience" class="px-4 text-slate-300 lg:px-8">
+            <h2 class="flex items-center gap-4 py-4">
+                <span><span class="text-teal-400">04 </span>Experience </span>
+                <span class="flex-grow border-spacing-3 border-t-2 border-dotted border-teal-400"></span>
+            </h2>
+            <div class="pb-20">
+                <template x-for="(entry, i) in entries">
+                    <div class="flex flex-row gap-4">
+                        <div class="flex flex-col items-center">
+                            <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <rect x="4" y="12.3333" width="11.7851" height="11.7851" transform="rotate(-45 4 12.3333)" fill="#8892C0" />
+                                <rect
+                                    x="1.41421"
+                                    y="12.5"
+                                    width="15.6777"
+                                    height="15.6777"
+                                    transform="rotate(-45 1.41421 12.5)"
+                                    stroke="#64FFDA"
+                                    stroke-width="2"
+                                />
+                            </svg>
+                            <span class="flex-grow border-spacing-3 border-l-2 border-dotted border-teal-400"></span>
+                        </div>
+                        <div :class="{'pb-8': i < entries.length - 1}">
+                            <h3 class="text-lg text-slate-200" x-text="entry.place">Place</h3>
+                            <div class="mt-1 text-sm text-slate-400" x-text="entry.date">07/2010 - 02/2018</div>
+                            <div class="mt-4 max-w-2xl space-y-2 text-justify" x-html="entry.description">A description...</div>
+                        </div>
+                    </div>
+                </template>
+            </div>
+        </section>
+        <section id="contact" class="flex flex-col items-center justify-center gap-y-8 border-t border-t-teal-400 px-4 py-16 text-slate-300 lg:px-8">
+            <div class="flex flex-col items-center justify-center gap-y-2">
+                <h3 class="font-serif text-4xl lg:text-6xl">Let's work <span class="text-teal-400">together</span></h3>
+                <span>petersud@hotmail.com</span>
+                <span>Based in Salt Lake City, UT</span>
+            </div>
+            <div class="flex flex-row gap-x-8 md:gap-x-6">
+                <a href="https://www.linkedin.com/in/jadson-alves-9aa45349/" target="_blank" class="">
+                    <svg class="w-12" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <g clip-path="url(#clip0_1581_175)">
+                            <path
+                                d="M24 0C10.7451 0 0 10.7451 0 24C0 37.2548 10.7451 47.9999 24 47.9999C37.2548 47.9999 48 37.2548 48 24C47.9999 10.7451 37.2547 0 24 0ZM17.5967 35.6028H12.3273V18.5788H17.5967V35.6028ZM14.9369 16.3494C13.216 16.3494 11.8208 14.9429 11.8208 13.2081C11.8208 11.4732 13.2161 10.0668 14.9369 10.0668C16.6576 10.0668 18.0528 11.4732 18.0528 13.2081C18.0529 14.943 16.6577 16.3494 14.9369 16.3494ZM37.3439 35.6028H32.1V26.6666C32.1 24.2157 31.169 22.8475 29.231 22.8475C27.1218 22.8475 26.0199 24.2725 26.0199 26.6666V35.6028H20.9659V18.5788H26.0199V20.8716C26.0199 20.8716 27.5402 18.0595 31.15 18.0595C34.7599 18.0595 37.344 20.2637 37.344 24.8235L37.3439 35.6028Z"
+                                fill="#CBD5E1"
+                            />
+                        </g>
+                        <defs>
+                            <clipPath id="clip0_1581_175">
+                                <rect width="48" height="48" fill="white" />
+                            </clipPath>
+                        </defs>
+                    </svg>
+                </a>
+                <a href="https://github.com/MadEagleBoy" target="_blank" class="">
+                    <svg class="w-12" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            fill-rule="evenodd"
+                            clip-rule="evenodd"
+                            d="M24 0C10.7448 0 0 11.0158 0 24.6087C0 35.4796 6.876 44.7045 16.4136 47.9572C17.6136 48.1832 18.0504 47.4241 18.0504 46.7706C18.0504 46.1884 18.0312 44.6382 18.0192 42.5868C11.3424 44.0731 9.9336 39.2875 9.9336 39.2875C8.844 36.4426 7.2696 35.686 7.2696 35.686C5.0904 34.1628 7.4352 34.1923 7.4352 34.1923C9.8424 34.3643 11.1096 36.7276 11.1096 36.7276C13.2504 40.4864 16.728 39.4005 18.0936 38.7716C18.3144 37.1821 18.9336 36.0987 19.62 35.4845C14.292 34.863 8.688 32.7502 8.688 23.3214C8.688 20.6363 9.624 18.4375 11.1576 16.7178C10.9104 16.0963 10.0872 13.5929 11.3928 10.2076C11.3928 10.2076 13.4088 9.54427 17.9928 12.7281C19.9506 12.1816 21.9707 11.9032 24 11.9002C26.04 11.9101 28.092 12.1828 30.0096 12.7281C34.5912 9.54427 36.6024 10.2051 36.6024 10.2051C37.9128 13.5929 37.0872 16.0963 36.8424 16.7178C38.3784 18.4375 39.3096 20.6363 39.3096 23.3214C39.3096 32.7748 33.696 34.8556 28.3512 35.4649C29.2128 36.224 29.9784 37.725 29.9784 40.022C29.9784 43.3091 29.9496 45.9648 29.9496 46.7706C29.9496 47.429 30.3816 48.1955 31.6008 47.9547C36.3799 46.3139 40.5344 43.1772 43.4772 38.9879C46.4199 34.7986 48.002 29.7686 48 24.6087C48 11.0158 37.2528 0 24 0Z"
+                            fill="currentColor"
+                        />
+                    </svg>
+                </a>
+                <a href="https://twitter.com/JadsonAlvesSud" target="_blank" class="">
+                    <svg class="w-12" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M15.838 41.8788C32.4414 41.8788 41.523 28.1222 41.523 16.1938C41.523 15.8022 41.523 15.4128 41.4966 15.0278C43.2636 13.7486 44.7886 12.1648 46 10.3506C44.3523 11.081 42.6044 11.5601 40.8146 11.7718C42.6992 10.6433 44.1097 8.86858 44.7834 6.77781C43.0117 7.82916 41.0736 8.57022 39.0524 8.96901C37.6915 7.5209 35.8911 6.56185 33.93 6.24036C31.9689 5.91888 29.9565 6.25289 28.2045 7.19069C26.4524 8.12848 25.0584 9.61774 24.2382 11.4279C23.4181 13.238 23.2176 15.268 23.6678 17.2036C20.0787 17.0237 16.5675 16.0911 13.3622 14.4663C10.1569 12.8415 7.32912 10.5608 5.0624 7.77221C3.9081 9.75926 3.5545 12.1115 4.07358 14.3501C4.59266 16.5887 5.94541 18.5453 7.8564 19.8216C6.42037 19.78 5.01539 19.3937 3.76 18.6952V18.8096C3.76086 20.8937 4.48247 22.9133 5.80247 24.526C7.12248 26.1387 8.95963 27.2453 11.0024 27.658C9.67318 28.0204 8.27857 28.0731 6.9258 27.812C7.50255 29.6061 8.62569 31.1749 10.1381 32.2992C11.6505 33.4234 13.4765 34.0468 15.3606 34.082C13.4887 35.5529 11.3451 36.6402 9.0526 37.282C6.76007 37.9237 4.36351 38.1072 2 37.822C6.12853 40.4715 10.9324 41.8768 15.838 41.87"
+                            fill="#CBD5E1"
+                        />
+                    </svg>
+                </a>
+            </div>
+        </section>
+    </body>
+</html>
